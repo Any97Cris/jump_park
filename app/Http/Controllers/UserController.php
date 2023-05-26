@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\StoreUpdateUserFormRequest;
 
 class UserController extends Controller
 {
@@ -23,29 +24,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateUserFormRequest $request)
     {
-        $regras = [
-            'name' => 'required|min:3|max:40'
-        ];
-
-        $feedback = [ 
-            'required' => 'O campo :attribute deve ser preenchido',
-            'nome.min' => 'O campo nome deve ter no mínimo 3 caracteres',
-            'nome.max' => 'O campo nome deve ter no máximo 40 caracteres'
-        ];
-
-        $validar = $request->validate($regras, $feedback);        
-
-        if($validar == true){
-            User::create($request->all());
-            return response()->json([
-                'message' => 'Sucesso ao Cadastrar!'
-            ]);
-        }else{            
-            return $validar;
-        }
-
+        $cadastrar = User::create($request->all());
+        return response()->json([
+            'message' => 'Sucesso ao Cadastrar'
+        ],201);
     }
 
     /**
@@ -74,39 +58,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
+    public function update(StoreUpdateUserFormRequest $request, $user)
     {
+        
       
-        $u = User::find($user);
-        if($u == true){
-            $regras = [
-                'name' => 'required|min:3|max:40'
-            ];
-    
-            $feedback = [ 
-                'required' => 'O campo :attribute deve ser preenchido',
-                'nome.min' => 'O campo nome deve ter no mínimo 3 caracteres',
-                'nome.max' => 'O campo nome deve ter no máximo 40 caracteres'
-            ];
-            
-            $validar = $request->validate($regras, $feedback);  
+        if(!$id = User::find($user)){
+            return response()->json(['message' => 'Not Found'], 404);
+        }        
 
-            if($validar == true){
-                $u->update($request->all());
-                return response()->json([
-                    'message' => 'Atualização Realizada com Sucesso'
-                ]);
-            }else{
-                return $validar;
-            }           
-
-        }else{
-            return response()->json([
-                'message' => 'ID inválido'
-            ]);
-        }
-        
-        
+        $id->update($request->all());
+        return response()->json($id);
     }
 
     /**
@@ -115,20 +76,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
-        $u = User::find($user);
+        if(!$id = User::find($user)){
+            return response()->json(['message' => 'Not Found'], 404);
+        }  
 
-        if($u == true){
-            $u->destroy($user);
-            return response()->json([
-                'messagem' => 'Deletado com Sucesso'
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'ID Inválido'
-            ]);
-        }       
+        $id->destroy($user);
         
+        return response()->json([
+            'message' => 'Registro Deletado com Sucesso!'
+                
+        ],200);
     }
 }
