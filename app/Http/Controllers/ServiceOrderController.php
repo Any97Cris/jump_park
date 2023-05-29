@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ServiceOrder;
+use App\Http\Requests\StoreUpdateServiceOrderFormRequest;
 
 class ServiceOrderController extends Controller
 {
@@ -23,33 +24,12 @@ class ServiceOrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateServiceOrderFormRequest $request)
     {
-        $regras = [
-            'vehiclePlate' => 'required|max:7|string',
-            'entryDateTime' => 'required',
-            'exitDateTime' => 'required',
-            'priceType' => 'required|max:55|string',
-            'price' => 'numeric',
-            'userId' => 'exists:users,id|required'
-        ];
-
-        $feedback = [
-            'required' => "O campo :attribute deve ser preenchido",
-            'vehiclePlate' => 'O campo :attribute deve ser preenchido',
-            'priceType' => 'O campo :attribute deve ter no máximo 55 caracteres',
-            'userId.exists' => "O campo :attribute não existe",
-        ];
-
-        $validar = $request->validate($regras,$feedback);
-        if($validar == true){
-            ServiceOrder::create($request->all());
-            return response()->json([
-                'message' => 'Dados Inseridos com Sucesso'
-            ]);
-        }else{
-            return $validar;
-        }
+        $cadastrar = ServiceOrder::create($request->all());
+        return response()->json([
+            'message' => 'Sucesso ao Cadastrar'
+        ],201);        
     }
 
     /**
@@ -58,12 +38,13 @@ class ServiceOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ServiceOrder $service_order)
+    public function show($service_order)
     {
-        $id = ServiceOrder::find($service_order);
-        if($id == true){
-            return $id;
-        }
+        if(!$id = ServiceOrder::find($service_order)){
+            return response()->json(['message' => 'Not Found'], 404);
+        } 
+
+        return $id;
     }
 
     /**
@@ -73,41 +54,14 @@ class ServiceOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $service_order)
+    public function update(StoreUpdateServiceOrderFormRequest $request, $service_order)
     {
-       $id = ServiceOrder::find($service_order);
-       if($id == true){
-        $regras = [
-            'vehiclePlate' => 'required|max:7|string',
-            'entryDateTime' => 'required',
-            'exitDateTime' => 'required',
-            'priceType' => 'required|max:55|string',
-            'price' => 'numeric',
-            'userId' => 'exists:users,id|required'
-        ];
+        if(!$id = ServiceOrder::find($service_order)){
+            return response()->json(['message' => 'Not Found'], 404);
+        }        
 
-        $feedback = [
-            'required' => "O campo :attribute deve ser preenchido",
-            'vehiclePlate' => 'O campo :attribute deve ser preenchido',
-            'priceType' => 'O campo :attribute deve ter no máximo 55 caracteres',
-            'userId.exists' => "O campo :attribute não existe",
-        ];
-
-        $validar = $request->validate($regras,$feedback);
-        if($validar == true){
-            $id->update($request->all());
-            return response()->json([
-                'message' => 'Dados Inseridos com Sucesso'
-            ],200);
-        }else{
-            return $validar;
-        }
-       }else{
-            return response()->json([
-                'message' => 'ID inválido'
-            ],404);
-       }       
-       
+        $id->update($request->all());
+        return response()->json($id);
     }
 
     /**
@@ -116,8 +70,15 @@ class ServiceOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ServiceOrder $service_order)
+    public function destroy($service_order)
     {
-        
+        if(!$id = ServiceOrder::find($service_order)){
+            return response()->json(['message' => 'Not Found'], 404);
+        } 
+
+        $id->destroy($service_order);
+        return response()->json([
+            'message' => 'Delete Realizado com Sucesso'
+        ]);
     }
 }
