@@ -13,9 +13,11 @@ class ServiceOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return ServiceOrder::all();
+        $serviceOrder = new ServiceOrder();
+        $data = $serviceOrder->getResults($request,5);
+        return response()->json($data);
     }
 
     /**
