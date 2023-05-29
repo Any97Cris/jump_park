@@ -23,4 +23,8 @@ class ServiceOrder extends Model
             }
         })->paginate($total);
     }
+
+    public function nomeUsuario(){
+        return $this->belongsTo('App\Models\User');
+    }
 }
