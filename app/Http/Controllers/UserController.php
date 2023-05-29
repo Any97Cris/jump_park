@@ -15,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        $dados = User::paginate(5);
+        return response()->json($dados);
     }
 
     /**
@@ -38,17 +39,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user)
     {
-        $id = User::find($user);
-       
-        if($id == true){
-            return $id;
-        }else{
-            return response()->json([
-                'message' => 'ID inválido!'
-            ],404);
-        }
+        if(!$id = User::find($user)){
+            return response()->json(['message' => 'Not Found'], 404);
+        } 
+
+        return $id;
     }
 
     /**
