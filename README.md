@@ -6,9 +6,8 @@ composer install e composer update
 ```
 
 ### 2 - Configurar Arquivo ENV:
-```
-php artisan migrate
-```
+
+Nome do Banco e Senha do Banco
 
 ### 3 - Rodar as Migrations:
 ```
