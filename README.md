@@ -64,6 +64,12 @@ http://127.0.0.1:8000/api/service_order/5/users
 http://127.0.0.1:8000/api/service_order/50
 ```
 
+<p style="font-size:12px">Filtro Placa de Veículo</p>
+
+```
+http://127.0.0.1:8000/api/service_order?vehiclePlate=placa
+```
+
 <p style="font-size:12px">Cadastrar</p>
 
 ```
