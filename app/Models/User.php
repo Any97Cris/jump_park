@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function placas(){
-        return $this->hasMany('App\Models\ServiceOrder');
+    public function serviceOrders(){
+        return $this->hasMany(ServiceOrder::class, 'userId');
     }
 }
