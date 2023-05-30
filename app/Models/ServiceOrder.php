@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceOrder extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = ['vehiclePlate', 'entryDateTime', 'exitDateTime', 'priceType', 'price', 'userId'];
 
     public function getResults($data, $total){
@@ -24,7 +24,7 @@ class ServiceOrder extends Model
         })->paginate($total);
     }
 
-    public function nomeUsuario(){
-        return $this->belongsTo('App\Models\User');
+    public function user(){
+        return $this->belongsTo(User::class, 'userId');
     }
 }
