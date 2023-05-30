@@ -21,4 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('service_order',ServiceOrderController::class);
+Route::get('service_order/{id}/users', [ServiceOrderController::class, 'serviceOrder']);
+
+
 Route::apiResource('user',UserController::class);
