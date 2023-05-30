@@ -45,7 +45,7 @@ http://127.0.0.1:8000/api/user
 http://127.0.0.1:8000/api/user/1
 ```
 
-<p style="font-size:12px">Campos e dados para cadastrar em JSON</p>
+<p style="font-size:12px">Campos e dados para atualizar em JSON</p>
 
 ```
 {
@@ -107,6 +107,19 @@ http://127.0.0.1:8000/api/service_order/
 
 ```
 http://127.0.0.1:8000/api/service_order/2
+```
+
+<p style="font-size:12px">Campos e dados para atualizar em JSON</p>
+
+```
+{
+    "vehiclePlate": "xxx555",
+    "entryDateTime": "2023-05-29",
+    "exitDateTime": "2023-06-02",
+    "priceType": "debito",
+    "price": "50",
+    "userId": "1"
+}
 ```
 
 <p style="font-size:12px">Delete</p>
