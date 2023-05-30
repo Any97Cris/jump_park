@@ -21,6 +21,66 @@ php artisan migrate
 http://127.0.0.1:8000/api/user
 ```
 
+<p style="font-size:12px">Filtro por ID</p>
+
+```
+http://127.0.0.1:8000/api/user/1
+```
+
+<p style="font-size:12px">Cadastrar</p>
+
+```
+http://127.0.0.1:8000/api/user
+```
+
+<p style="font-size:12px">Atualizar</p>
+
+```
+http://127.0.0.1:8000/api/user/1
+```
+
+<p style="font-size:12px">Delete</p>
+
+```
+http://127.0.0.1:8000/api/user/1
+```
+
+### 5 - Acessar Rotas Service Order:
+<p style="font-size:12px">Listar</p>
+
+```
+http://127.0.0.1:8000/api/service_order
+```
+
+<p style="font-size:12px">Listar dados da tabela service order e user</p>
+
+```
+http://127.0.0.1:8000/api/service_order/5/users
+```
+
+<p style="font-size:12px">Listar por ID</p>
+
+```
+http://127.0.0.1:8000/api/service_order/50
+```
+
+<p style="font-size:12px">Cadastrar</p>
+
+```
+http://127.0.0.1:8000/api/service_order/
+```
+
+<p style="font-size:12px">Atualizar</p>
+
+```
+http://127.0.0.1:8000/api/service_order/2
+```
+
+<p style="font-size:12px">Delete</p>
+
+```
+http://127.0.0.1:8000/api/service_order/2
+```
 
 
 
