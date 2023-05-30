@@ -24,7 +24,7 @@ class StoreUpdateServiceOrderFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'vehiclePlate' => 'required|max:7|string',
+            'vehiclePlate' => "required|max:7|string|unique:service_orders,vehiclePlate,{$this->id},id",
             'entryDateTime' => 'required',
             'exitDateTime' => 'required',
             'priceType' => 'required|max:55|string',
