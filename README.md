@@ -16,6 +16,7 @@ php artisan migrate
 
 ### 4 - Acessar Rotas User:
 <p style="font-size:12px">Listar</p>
+
 ```
 http://127.0.0.1:8000/api/user
 ```
