@@ -83,4 +83,15 @@ class ServiceOrderController extends Controller
             'message' => 'Delete Realizado com Sucesso'
         ]);
     }
+
+    public function serviceOrder($id){
+
+        if(!$service_order = ServiceOrder::with('user')->get()){
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+
+        return response()->json([
+            'serviceOrders' => $service_order,
+        ]);
+    }
 }
